@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_totp/setup-page.dart';
 import 'package:provider/provider.dart';
-import 'app-model.dart';
+import '../models/app-model.dart';
+import '../screens/setup-page.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key key, this.title}) : super(key: key);
@@ -60,7 +60,7 @@ class _MainPageState extends State<MainPage> {
           onPressed: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => SetupPage(title: 'Enter new account')),
+              MaterialPageRoute(builder: (context) => SetupPage(title: 'Setup new account')),
             );
           },
           child: Icon(Icons.add),

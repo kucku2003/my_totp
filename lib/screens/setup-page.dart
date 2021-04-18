@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_totp/main.dart';
 import 'package:base32/base32.dart';
 import 'package:provider/provider.dart';
-import 'app-model.dart';
-import 'otp-model.dart';
+import '../models/app-model.dart';
 
 class SetupPage extends StatefulWidget {
   SetupPage({Key key, this.title}) : super(key: key);
