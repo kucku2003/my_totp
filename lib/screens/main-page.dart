@@ -39,7 +39,7 @@ class _MainPageState extends State<MainPage> {
               columnWidths: const <int, TableColumnWidth>{
                 0: FixedColumnWidth(20),
                 1: FlexColumnWidth(),
-                2: FixedColumnWidth(120),
+                2: FixedColumnWidth(140),
                 3: FixedColumnWidth(50),
               },
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,

@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'screens/main-page.dart';
 import 'models/app-model.dart';
+import 'models/setup-model.dart';
 
 void main() => runApp(
-  ChangeNotifierProvider(
-    create: (context) => AppModel(),
+  MultiProvider(
+    providers: [
+      ChangeNotifierProvider<AppModel>(create: (context) => AppModel()),
+      ChangeNotifierProvider<SetupModel>(create: (context) => SetupModel()),
+    ],
     child: MyApp(),
-  ),
+  )
 );
 
 class MyApp extends StatelessWidget {

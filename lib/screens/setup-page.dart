@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:base32/base32.dart';
+import 'package:my_totp/models/setup-model.dart';
 import 'package:provider/provider.dart';
 import '../models/app-model.dart';
+import '../screens/qr-scan-page.dart';
 
 class SetupPage extends StatefulWidget {
   SetupPage({Key key, this.title}) : super(key: key);
@@ -14,13 +16,10 @@ class SetupPage extends StatefulWidget {
 
 class _SetupPageState extends State<SetupPage> {
 
-  String _name = "";
-  String _key = "";
-
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppModel>(
-      builder: (context, appModel, child) => Scaffold(
+    return Consumer2<AppModel,SetupModel>(
+      builder: (context, appModel, setupModel, child) => Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
         ),
@@ -33,19 +32,30 @@ class _SetupPageState extends State<SetupPage> {
                 hintText: 'Enter description of the new account',
                 labelText: 'Account name (*)',
               ),
+              initialValue: setupModel.name,
               onChanged: (String value) {
-                this._name = value;
+                setupModel.setName(value);
               },
             ),
             TextFormField(
               autovalidateMode: AutovalidateMode.always,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 icon: Icon(Icons.lock),
                 hintText: 'Enter secret key',
                 labelText: 'Key (*)',
+                suffixIcon: IconButton (
+                  icon: Icon(Icons.qr_code),
+                  onPressed: () => {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => QRScanPage(title: 'Scan QR Code')),            
+                    ),
+                  }
+                ),
               ),
+              initialValue: setupModel.key,
               onChanged: (String value) {
-                this._key = value;
+                setupModel.setKey(value);
               },
               validator: (String value) {
                 try {
@@ -65,7 +75,9 @@ class _SetupPageState extends State<SetupPage> {
                   label: Text('Add new account'),
                   icon: Icon(Icons.save),
                   onPressed: () => {
-                    appModel.addOTP(this._name, this._key),
+                    appModel.addOTP(setupModel.name, setupModel.key),
+                    setupModel.setName(""),
+                    setupModel.setKey(""),
                     Navigator.pop(context)
                   },
                 ),
@@ -78,9 +90,8 @@ class _SetupPageState extends State<SetupPage> {
             Navigator.pop(context)
           },
           child: Icon(Icons.arrow_back),
-        ), // This trailing comma makes auto-formatting nicer for build methods.
+        ), 
       )
     );
   }
 }
-

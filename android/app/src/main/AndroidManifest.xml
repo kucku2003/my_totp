@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.my_totp">
    <application
-        android:label="my_totp"
-        android:icon="@mipmap/ic_launcher">
+        android:label="TOTP"
+        android:icon="@mipmap/avatar">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
