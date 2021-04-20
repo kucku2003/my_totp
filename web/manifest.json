@@ -1,11 +1,11 @@
 {
-    "name": "my_totp",
-    "short_name": "my_totp",
+    "name": "Simple TOTP Authenticator",
+    "short_name": "simple_totp_authenticator",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "description": "This is a simple Time-based One-Time Password Authenticator.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

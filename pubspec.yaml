@@ -1,5 +1,5 @@
-name: my_totp
-description: A new Flutter project.
+name: simple_totp_authenticator
+description: This is a simple Time-based One-Time Password Authenticator.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.

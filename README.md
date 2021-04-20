@@ -1,6 +1,6 @@
-# my_totp
+# Simple TOTP Authenticator
 
-A new Flutter project.
+This is a simple Time-based One-Time Password Authenticator.
 
 ## Getting Started
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:base32/base32.dart';
-import 'package:my_totp/models/setup-model.dart';
 import 'package:provider/provider.dart';
 import '../models/app-model.dart';
+import '../models/setup-model.dart';
 import '../screens/qr-scan-page.dart';
 
 class SetupPage extends StatefulWidget {

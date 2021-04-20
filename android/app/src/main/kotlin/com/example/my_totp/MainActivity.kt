@@ -1,4 +1,4 @@
-package com.example.my_totp
+package com.android.simple_totp_authenticator
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -20,6 +20,25 @@ class _MainPageState extends State<MainPage> {
       builder: (context, appModel, child) => Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
+          actions: [
+            PopupMenuButton(
+              itemBuilder: (BuildContext bc) => [
+                PopupMenuItem (
+                  child: Row (
+                    children: <Widget> [
+                      Icon(Icons.info, size: 28, color: Colors.blue,),
+                      SizedBox(width: 6,),
+                      Text('About'),
+                    ],
+                  ),
+                  value: "/about"
+                ),
+              ], 
+              onSelected: (route) {
+                Navigator.pushNamed(context, route);
+              },
+            )
+          ]
         ),
         body: Column(
           children: [
@@ -39,7 +58,7 @@ class _MainPageState extends State<MainPage> {
               columnWidths: const <int, TableColumnWidth>{
                 0: FixedColumnWidth(20),
                 1: FlexColumnWidth(),
-                2: FixedColumnWidth(140),
+                2: FixedColumnWidth(150),
                 3: FixedColumnWidth(50),
               },
               defaultVerticalAlignment: TableCellVerticalAlignment.middle,

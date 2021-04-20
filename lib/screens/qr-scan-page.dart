@@ -53,8 +53,8 @@ class _QRScanPageState extends State<QRScanPage> {
               child: Center(
                 child: (result != null)
                     ? Text(
-                        'Found: ${result.code}', style: Theme.of(context).textTheme.headline6)
-                    : Text('Scanning...', style: Theme.of(context).textTheme.headline6),
+                        'Found: ${result.code}', style: Theme.of(context).textTheme.bodyText1)
+                    : Text('Scanning...', style: Theme.of(context).textTheme.bodyText2),
               ),
             ),
             Expanded(
@@ -65,7 +65,7 @@ class _QRScanPageState extends State<QRScanPage> {
                 child: SizedBox(
                   width: double.infinity,
                     child: ElevatedButton.icon(
-                      label: Text('Add key'),
+                      label: Text('Accept key'),
                       icon: Icon(Icons.done),
                       onPressed: (result != null) ? () => {
                         setupModel.setKey(result.code),
