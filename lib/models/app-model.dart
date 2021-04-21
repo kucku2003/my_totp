@@ -7,15 +7,10 @@ class AppModel extends ChangeNotifier {
 
   AppModel() {
     new Timer.periodic(new Duration(milliseconds:100), (Timer t) => updateOTP());
-   // otpList.add(new OTPModel("Test", "ABCDEFGHIKLMNOPQ"));
-   // otpList.add(new OTPModel("Test 1234", "ABCDEFGHIKLMNOPQ"));
     _getData();
   }
 
   List<OTPModel> otpList = [];
-  double progress = 0;
-
-  int _lastCounter = 0;
 
   void _getData() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -25,10 +20,10 @@ class AppModel extends ChangeNotifier {
       var k = keys.elementAt(i);
       String value = prefs.get(k); 
       var splitedValue = value.split("@"); 
-      if (splitedValue.length == 2) {
-        var newOTP = new OTPModel(splitedValue[0], splitedValue[1]);
+      if (splitedValue.length == 3) {
+        var newOTP = new OTPModel(splitedValue[0], splitedValue[1], int.parse(splitedValue[2]));
         newOTP.uuid = k;
-        newOTP.refresh(_lastCounter);
+        newOTP.refresh(newOTP.lastCounter);
         otpList.add(newOTP);
       }
     }
@@ -36,25 +31,27 @@ class AppModel extends ChangeNotifier {
   }
 
   void updateOTP() {
-    var _currentCounterInDouble = ((DateTime.now().millisecondsSinceEpoch) / (1000 * 30));
-    var _currentCounter = _currentCounterInDouble.floor();
-    progress = _currentCounterInDouble - _currentCounter.toDouble();
-    if (_currentCounter != _lastCounter) {
-      otpList.forEach((otp) => otp.refresh(_currentCounter));
-      _lastCounter = _currentCounter;
-      progress = 0;
+    for (int i = 0; i < otpList.length; i++) {
+      var _currentCounterInDouble = ((DateTime.now().millisecondsSinceEpoch) / (1000 * otpList[i].interval));
+      var _currentCounter = _currentCounterInDouble.floor();
+      otpList[i].progress = _currentCounterInDouble - _currentCounter.toDouble();
+      if (_currentCounter != otpList[i].lastCounter) {
+        otpList[i].refresh(_currentCounter);
+        otpList[i].lastCounter = _currentCounter;
+        otpList[i].progress = 0;
+      }
     }
 
     notifyListeners();
   }
 
-  void addOTP(String name, String key) async {
-    var newOTP = new OTPModel(name, key);
-    newOTP.refresh(_lastCounter);
+  void addOTP(String name, String key, int interval) async {
+    var newOTP = new OTPModel(name, key, interval);
+    newOTP.refresh(newOTP.lastCounter);
     otpList.add(newOTP);
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(newOTP.uuid, name + '@' + key);
+    await prefs.setString(newOTP.uuid, name + '@' + key + "@" + interval.toString());
 
     notifyListeners();
   }

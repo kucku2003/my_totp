@@ -66,6 +66,44 @@ class _SetupPageState extends State<SetupPage> {
                 return null;
               },
             ),
+            SizedBox(height: 12),
+            Row (
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(Icons.timer_sharp),
+                Expanded(
+                  child: Padding (
+                    padding: const EdgeInsets.only(left: 16, right: 0),
+                    child: Container (
+                      decoration: BoxDecoration(
+                        border: Border(bottom : BorderSide(color: Colors.grey))
+                      ),
+                      child: Row (
+                        children: [
+                          Expanded (
+                            flex: 1,
+                            child: Text(setupModel.interval.toString() + "s"),
+                          ),
+                          Expanded (
+                            flex: 8,
+                            child: Slider (
+                              value: setupModel.interval.toDouble(),
+                              min: 30,
+                              max: 180,
+                              divisions: 5,
+                              label: "Interval: " + setupModel.interval.toString() + " seconds",
+                              onChanged: (double value) {
+                                setupModel.setInterval(value.floor());
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
             SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
@@ -75,7 +113,7 @@ class _SetupPageState extends State<SetupPage> {
                   label: Text('Add new account'),
                   icon: Icon(Icons.save),
                   onPressed: () => {
-                    appModel.addOTP(setupModel.name, setupModel.key),
+                    appModel.addOTP(setupModel.name, setupModel.key, setupModel.interval),
                     setupModel.setName(""),
                     setupModel.setKey(""),
                     Navigator.pop(context)

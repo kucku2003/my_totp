@@ -9,11 +9,16 @@ class OTPModel {
   String uuid;
   String name;
   String key;
-  String value;
+  int interval;
 
-  OTPModel(String name, String key) {
+  String value;
+  double progress = 0;
+  int lastCounter = 0;
+
+  OTPModel(String name, String key, int interval) {
     this.name = name;
     this.key = key;
+    this.interval = interval;
     this.value = "";
     this.uuid = Uuid().v1();
   }
