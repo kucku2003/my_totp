@@ -1,16 +1,16 @@
 # Simple TOTP Authenticator
 
-This is a simple Time-based One-Time Password Authenticator.
+Actually, this is my first flutter application. After a while trying to figure out, I decided to code an TOTP App for replacing my current installed App Google Authenticator.
 
-## Getting Started
+New TOTP accounts can be added via Setup page. As inputs, we have:
+- Account name/description
+- Seed key as direct input via keyboard, or also via QR Code Scanner
+- Time-interval can be selected between 30/60/90/120/150/180s
 
-This project is a starting point for a Flutter application.
+The app was mostly tested for Android smartphone. I built an apk and installed this on my Android phone too. 
 
-A few resources to get you started if this is your first Flutter project:
+A few things to be noticed and probably will be improved in the future:
+- For QR Code Scanner, I am using "qr_code_scanner 0.4.0", including the example on the page. As just for scanning QR Code, I think, it works fine. Most of the time, the Camera screen does not work on the second time using Scanner. But even it displays nothing, you can still be able to scanner the QR Code successfully.   
+>https://pub.dev/packages/qr_code_scanner/versions/0.4.0-nullsafety.0
+- I am using "shared_preferences" for storing accounts info. So you might lose all accounts when reinstalling the app. But it is extremly simple and fulfill all my current needs.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
