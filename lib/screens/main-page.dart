@@ -52,7 +52,7 @@ class _MainPageState extends State<MainPage> {
                 0: FixedColumnWidth(20),
                 1: FixedColumnWidth(20),
                 2: FlexColumnWidth(),
-                3: FixedColumnWidth(122),
+                3: FixedColumnWidth(140),
                 4: FixedColumnWidth(14),
                 5: FixedColumnWidth(20),
                 6: FixedColumnWidth(14),
