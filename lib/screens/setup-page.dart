@@ -25,93 +25,102 @@ class _SetupPageState extends State<SetupPage> {
         ),
         body: Column(
           children: [
-            TextFormField(
-              autovalidateMode: AutovalidateMode.disabled,
-              decoration: const InputDecoration(
-                icon: Icon(Icons.person),
-                hintText: 'Enter description of the new account',
-                labelText: 'Account name (*)',
-              ),
-              initialValue: setupModel.name,
-              onChanged: (String value) {
-                setupModel.setName(value);
-              },
-            ),
-            TextFormField(
-              autovalidateMode: AutovalidateMode.always,
-              decoration: InputDecoration(
-                icon: Icon(Icons.lock),
-                hintText: 'Enter secret key',
-                labelText: 'Key (*)',
-                suffixIcon: IconButton (
-                  icon: Icon(Icons.qr_code),
-                  onPressed: () => {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => QRScanPage(title: 'Scan QR Code')),            
-                    ),
-                  }
+            Padding (
+              padding: const EdgeInsets.only(left: 8, right: 0),
+              child: TextFormField(
+                autovalidateMode: AutovalidateMode.disabled,
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.person),
+                  hintText: 'Enter description of the new account',
+                  labelText: 'Account name (*)',
                 ),
+                initialValue: setupModel.name,
+                onChanged: (String value) {
+                  setupModel.setName(value);
+                },
               ),
-              initialValue: setupModel.key,
-              onChanged: (String value) {
-                setupModel.setKey(value);
-              },
-              validator: (String value) {
-                try {
-                  base32.decode(value);
-                } on FormatException catch (_) {
-                  return 'Invalid key format';
-                }
-                return null;
-              },
+            ),
+            Padding (
+              padding: const EdgeInsets.only(left: 8, right: 0),
+              child: TextFormField(
+                autovalidateMode: AutovalidateMode.always,
+                decoration: InputDecoration(
+                  icon: Icon(Icons.lock),
+                  hintText: 'Enter secret key',
+                  labelText: 'Key (*)',
+                  suffixIcon: IconButton (
+                    icon: Icon(Icons.qr_code),
+                    onPressed: () => {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => QRScanPage(title: 'Scan QR Code')),            
+                      ),
+                    }
+                  ),
+                ),
+                initialValue: setupModel.key,
+                onChanged: (String value) {
+                  setupModel.setKey(value);
+                },
+                validator: (String value) {
+                  try {
+                    base32.decode(value);
+                  } on FormatException catch (_) {
+                    return 'Invalid key format';
+                  }
+                  return null;
+                },
+              ),
             ),
             SizedBox(height: 12),
-            Row (
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(Icons.timer_sharp),
-                Expanded(
-                  child: Padding (
-                    padding: const EdgeInsets.only(left: 16, right: 0),
-                    child: Container (
-                      decoration: BoxDecoration(
-                        border: Border(bottom : BorderSide(color: Colors.grey))
-                      ),
-                      child: Row (
-                        children: [
-                          Expanded (
-                            flex: 1,
-                            child: Text(setupModel.interval.toString() + "s"),
-                          ),
-                          Expanded (
-                            flex: 8,
-                            child: Slider (
-                              value: setupModel.interval.toDouble(),
-                              min: 30,
-                              max: 180,
-                              divisions: 5,
-                              label: "Interval: " + setupModel.interval.toString() + " seconds",
-                              onChanged: (double value) {
-                                setupModel.setInterval(value.floor());
-                              },
+            Padding (
+              padding: const EdgeInsets.only(left: 8, right: 0),
+              child: Row (
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(Icons.timer_sharp, color: Colors.grey[600],),
+                  Expanded(
+                    child: Padding (
+                      padding: const EdgeInsets.only(left: 16, right: 0),
+                      child: Container (
+                        decoration: BoxDecoration(
+                          border: Border(bottom : BorderSide(color: Colors.grey))
+                        ),
+                        child: Row (
+                          children: [
+                            Expanded (
+                              flex: 1,
+                              child: Text(setupModel.interval.toString() + "s"),
                             ),
-                          ),
-                        ],
+                            Expanded (
+                              flex: 8,
+                              child: Slider (
+                                value: setupModel.interval.toDouble(),
+                                min: 30,
+                                max: 180,
+                                divisions: 5,
+                                label: "Interval: " + setupModel.interval.toString() + " seconds",
+                                onChanged: (double value) {
+                                  setupModel.setInterval(value.floor());
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             SizedBox(height: 20),
             Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20),
+              padding: const EdgeInsets.only(left: 24, right: 24),
               child: SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
                   label: Text('Add new account'),
-                  icon: Icon(Icons.save),
+                  icon: Icon(Icons.add),
                   onPressed: () => {
                     appModel.addOTP(setupModel.name, setupModel.key, setupModel.interval),
                     setupModel.setName(""),
